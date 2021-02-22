@@ -7,11 +7,11 @@
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
-    <!-- 패키지 내 Controller, Service, Repository 클래스의 auto detect를 위한 mvc 설정 -->
-    <context:component-scan base-package="egovframework">
+    <!-- 패키지 내 @Controller, @Service, @Repository 클래스를 빈으로 자동등록하기 위한 mvc 설정 -->
+    <context:component-scan base-package="egovframework,edu">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
     <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정-->
@@ -33,11 +33,13 @@
 	    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
 
     <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
+    <!-- /admin/**/*.do로 호출하는 URL접근은 로그인 이후에 사용이 가능하게 처리(아래) -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/cop/com/*.do"/>
             <mvc:mapping path="/cop/bbs/*Master*.do"/>
             <mvc:mapping path="/uat/uia/*.do"/>
+            <mvc:mapping path="/admin/**/*.do"/>
             <mvc:exclude-mapping path="/uat/uia/actionLogin.do"/>
             <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do"/>
 		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />

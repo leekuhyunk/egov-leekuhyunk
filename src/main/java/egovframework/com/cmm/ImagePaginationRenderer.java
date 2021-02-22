@@ -30,12 +30,12 @@ public class ImagePaginationRenderer extends AbstractPaginationRenderer implemen
 	}
 	
 	public void initVariables(){
-		firstPageLabel    = "<li>&#160;</li><li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/egovframework/com/cmm/mod/icon/icon_prevend.gif\" alt=\"처음\"   border=\"0\"/></a></li>";
-        previousPageLabel = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/egovframework/com/cmm/mod/icon/icon_prev.gif\"    alt=\"이전\"   border=\"0\"/></a></li>";
-        currentPageLabel  = "<li><strong>{0}</strong></li>";
-        otherPageLabel    = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">{2}</a></li>";
-        nextPageLabel     = "<li>&#160;<a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/egovframework/com/cmm/mod/icon/icon_next.gif\"    alt=\"다음\"   border=\"0\"/></a></li>";
-        lastPageLabel     = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/egovframework/com/cmm/mod/icon/icon_nextend.gif\" alt=\"마지막\" border=\"0\"/></a></li>";
+		firstPageLabel    = "<li class=\"paginate_button page-item\">&#160;</li><li><a class=\"page-link\" href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">처음</a></li>";
+        previousPageLabel = "<li class=\"paginate_button page-item\"><a class='page-link' href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">이전</a></li>";
+        currentPageLabel  = "<li class=\"paginate_button page-item active\"><span class=\"page-link\">{0}</span></li>";
+        otherPageLabel    = "<li class=\"paginate_button page-item\"><a class=\"page-link\" href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">{2}</a></li>";
+        nextPageLabel     = "<li class=\"paginate_button page-item\">&#160;<a class=\"page-link\" href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">다음</a></li>";
+        lastPageLabel     = "<li class=\"paginate_button page-item\"><a class=\"page-link\" href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">끝</a></li>";
 	}
 
 	
