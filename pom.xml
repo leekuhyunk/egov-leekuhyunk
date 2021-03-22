@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>egov-leekuhyunk</groupId>
-	<artifactId>egov-leekuhyunk</artifactId>
+	<groupId>egov-kimilguk</groupId>
+	<artifactId>egov-kimilguk</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>egov-leekuhyunk</name>
+	<name>egov-kimilguk</name>
 	<url>http://www.egovframe.go.kr</url>
 
 	<licenses>
@@ -129,13 +129,13 @@
 			<artifactId>commons-compress</artifactId>
 			<version>1.19</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-
+		
 		<!-- mysql driver -->
 		
         <dependency>
@@ -253,6 +253,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		
 		<!-- Tiles -->
 	    <dependency>
 	        <groupId>org.apache.tiles</groupId>
@@ -260,7 +261,7 @@
 	        <version>3.0.8</version>
 	    </dependency>
 	    <!-- 스프링 시큐리티 모듈 추가 -->
-		<dependency>
+	    <dependency>
 			<groupId>egovframework.rte</groupId>
 			<artifactId>egovframework.rte.fdl.security</artifactId>
 			<version>3.9.0</version>
