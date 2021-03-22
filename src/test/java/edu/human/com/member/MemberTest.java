@@ -67,6 +67,9 @@ public class MemberTest {
 		//memberVO에 set으로 값을 입력한 이후 DB에 인서트함.
 		//emplyr_id는 기본키이기 때문에 중복허용하지 않게 처리(아래)
 		PageVO pageVO = new PageVO();
+		pageVO.setPage(1);
+		pageVO.setPerPageNum(10);
+		pageVO.setQueryPerPageNum(10000);
 		List<EmployerInfoVO> memberList = memberService.selectMember(pageVO);
 		memberVO.setEMPLYR_ID("user_" + (memberList.size()+1));
 		memberVO.setORGNZT_ID("ORGNZT_0000000000000");//외래키이기때문에

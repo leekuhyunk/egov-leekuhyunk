@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">글상세보기</li>
+              <li class="breadcrumb-item active">${brdMstrVO.bbsNm} 글상세보기</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -46,31 +46,26 @@
                 <hr>
                 <strong><i class="fas fa-pencil-alt mr-1"></i> 작성자</strong>
                 <p class="text-muted">
-                ${result.ntcrId}
+                ${result.frstRegisterNm}
                 </p>
                 <c:if test="${not empty result.atchFileId}">
-                <hr>
-                <strong><i class="far fa-save mr-1"></i> 첨부파일</strong>
-                <p class="text-muted"><a href="#">파일다운로드</a></p>
+	                <hr>
+	                <strong><i class="far fa-save mr-1"></i> 첨부파일</strong>
+	                <p class="text-muted">
+	                <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+	                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
+	                </c:import>
+	                </p>
                 </c:if>
               </div>
               <!-- /.card-body -->
             </div>
           <!-- 버튼영역 시작 -->
           <div class="card-body">
-            	<a href="board_list.html" class="btn btn-primary float-right mr-1">LIST ALL</a>
-              	<a href="board_list.html" class="btn btn-danger float-right mr-1">DELETE</a>
-				<a href="board_write.html" class="btn btn-warning float-right mr-1 text-white">UPDATE</a>              	
-              	<!-- 부트스트랩 디자인 버튼클래스를 이용해서 a태그를 버튼모양 만들기(위) -->
-              	<!-- btn클래스명이 버튼모양으로 변경, btn-primary클래스명은 버튼색상을 변경하는역할 -->
-              	<!-- 
-              	어떻게 스타일이 아닌 클래스에다가 넣어줌으로서 모양과 위치과 바뀌는건가요?
-              	... 생각하는 부트스트랩은 html과 css를 모아놓은 집합체라고 생각하는데 
-              	거기에 float-right클라스로 정해놓은곳에 오른쪽으로 가게하는 스타일이 지정되어있어서 = 부트스트랩
-              	클래스 이름만 지정해줘도 그 클래스로 지정된 스타일이 적용되어서 
-              	클래스 이름 지정만으로도 스타일이 적용된다고 보면...          	
-              	 -->
-              </div>
+            <button id="btn_list" type="button" class="btn btn-primary float-right mr-1">목록</button>
+            <button id="btn_delete" type="button" class="btn btn-danger float-right mr-1">삭제</button>
+			<button id="btn_update" type="button" class="btn btn-warning float-right mr-1 text-white">수정</button>              	
+          </div>
           <!-- 버튼영역 끝 -->
           </div><!-- //col-12 -->
         </div><!-- //row -->
@@ -82,3 +77,33 @@
   <!-- /.content-wrapper -->
   
 <%@ include file="../include/footer.jsp" %>
+<form name="frm" method="post" action="<c:url value='/admin/board/list_board.do'/>">
+	<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+	<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
+	<input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
+	<input type="hidden" name="parnts" value="<c:out value='${result.parnts}'/>" >
+	<input type="hidden" name="sortOrdr" value="<c:out value='${result.sortOrdr}'/>" >
+	<input type="hidden" name="replyLc" value="<c:out value='${result.replyLc}'/>" >
+	<input type="hidden" name="nttSj" value="<c:out value='${result.nttSj}'/>" >
+	<input type="hidden" name="atchFileId" value="${result.atchFileId}">
+	<input type="hidden" name="fileSn" value="0" >
+</form>
+<script>
+$(document).ready(function(){
+	var action_form = $("form[name='frm']");
+	$("#btn_list").on("click",function(){
+		action_form.submit();
+	});
+	$("#btn_delete").on("click",function(){
+		if(confirm("정말로 삭제하시겠습니까?")){
+			action_form.attr("action","<c:url value='/admin/board/delete_board.do' />");
+			action_form.submit();
+		}	
+	});
+	$("#btn_update").on("click",function(){
+		//alert("준비중 입니다.");
+		action_form.attr("action","<c:url value='/admin/board/update_board_form.do' />");
+		action_form.submit();
+	});
+});
+</script>

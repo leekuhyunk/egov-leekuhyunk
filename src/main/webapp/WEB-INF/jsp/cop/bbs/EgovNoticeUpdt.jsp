@@ -188,9 +188,9 @@
 					      </c:if>   
 					      <c:if test="${not empty result.atchFileId}">
 					          <tr> 
-					            <th height="23"><spring:message code="cop.atchFileList" /></th>
+					            <th height="23">디버그<spring:message code="cop.atchFileList" /></th>
 					            <td colspan="3">
-					                <c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
+					                <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 					                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
 					                </c:import>
 					            </td>

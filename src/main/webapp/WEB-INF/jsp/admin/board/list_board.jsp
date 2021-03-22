@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://egovframework.gov/ctl/ui" prefix="ui" %>
 <%@ include file="../include/header.jsp" %>
-
+<script>
+function fn_egov_select_noticeList(pageNo) {
+    document.search_form.pageIndex.value = pageNo;
+    document.search_form.submit();  
+}
+</script>
 <!-- 대시보드 본문 Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- 본문헤더 Content Header (Page header) -->
@@ -77,6 +82,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <c:if test="${fn:length(resultList) == 0}">
+                  	<tr><td class="text-center" colspan="5">조회된 값이 없습니다.</td></tr>
+                  </c:if>
                   <c:forEach items="${resultList}" var="result" varStatus="status">
                     <tr>
                       <td>
@@ -118,7 +126,7 @@
             
             <!-- 버튼영역 시작 -->
               <div class="card-body">
-              	<a href="<c:url value='/admin/board/insert_board.do' />" class="btn btn-primary float-right">글작성</a>
+              	<a href="<c:url value='/admin/board/insert_board_form.do?bbsId=${boardVO.bbsId}' />" class="btn btn-primary float-right">글작성</a>
               	<!-- 부트스트랩 디자인 버튼클래스를 이용해서 a태그를 버튼모양 만들기(위) -->
               	<!-- btn클래스명이 버튼모양으로 변경, btn-primary클래스명은 버튼색상을 변경하는역할 -->
               	<!-- 

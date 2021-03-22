@@ -14,7 +14,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
-    <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정-->
+    <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정 개발시 제거, 배포시 살리고,
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmm/error/egovError"/>
         <property name="exceptionMappings">
@@ -26,6 +26,16 @@
             </props>
         </property>
     </bean>
+	-->
+	<!-- 타일즈 jsp템플릿 리졸버 해석기 설정추가(아래) -->
+	<!-- 화면처리용 JSP 파일명의  prefix, suffix 처리에 대한 타일즈 설정추가 -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+	p:order="0" p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView" />
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
+		<property name="definitions">
+			<value>classpath*:egovframework/spring/com/context-tiles.xml</value>
+		</property>
+	</bean>
 
     <!-- 화면처리용 JSP 파일명의  prefix, suffix 처리에 대한 mvc 설정  -->
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
@@ -33,7 +43,7 @@
 	    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
 
     <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
-    <!-- /admin/**/*.do로 호출하는 URL접근은 로그인 이후에 사용이 가능하게 처리(아래) -->
+    <!-- /admin/*.do로 호출하는 URL접근은 로그인이 이후에 사용이 가능하게 처리(아래) -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/cop/com/*.do"/>
@@ -42,6 +52,7 @@
             <mvc:mapping path="/admin/**/*.do"/>
             <mvc:exclude-mapping path="/uat/uia/actionLogin.do"/>
             <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do"/>
+            <mvc:exclude-mapping path="/tiles/*.do"/>
 		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

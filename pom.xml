@@ -253,6 +253,18 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		<!-- Tiles -->
+	    <dependency>
+	        <groupId>org.apache.tiles</groupId>
+	        <artifactId>tiles-extras</artifactId>
+	        <version>3.0.8</version>
+	    </dependency>
+	    <!-- 스프링 시큐리티 모듈 추가 -->
+		<dependency>
+			<groupId>egovframework.rte</groupId>
+			<artifactId>egovframework.rte.fdl.security</artifactId>
+			<version>3.9.0</version>
+		</dependency>
 		
 	</dependencies>
 

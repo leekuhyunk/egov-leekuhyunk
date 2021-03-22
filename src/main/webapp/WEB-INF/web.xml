@@ -4,6 +4,19 @@
 		 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>egovframework.sht</display-name>
+	<!-- *스프링 시큐리티 연동 추가2 -->
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+	<!-- 한글 인코딩 때문에 추가(아래) -->
 	<filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -63,18 +76,20 @@
 	<session-config>
         <session-timeout>600</session-timeout>
     </session-config>
-    
+    <!-- 
 	<error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/common/error.jsp</location>
     </error-page>
+     -->
     <error-page>
         <error-code>404</error-code>
         <location>/common/error.jsp</location>
     </error-page>
+    <!-- 
     <error-page>
         <error-code>500</error-code>
         <location>/common/error.jsp</location>
     </error-page>
-    
+    -->
 </web-app>

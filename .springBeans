@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.13.202006180736-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/egovframework/spring/com/context-security.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/config/egovframework/springmvc/egov-com-servlet.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-properties.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-mapper.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-aspect.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-datasource.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-idgen.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-sqlMap.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-validator.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-common.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-tiles.xml</config>
+		<config>src/main/resources/egovframework/spring/com/context-transaction.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

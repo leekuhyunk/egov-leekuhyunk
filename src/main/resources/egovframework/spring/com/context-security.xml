@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:egov-security="http://www.egovframe.go.kr/schema/egov-security"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.egovframe.go.kr/schema/egov-security http://www.egovframe.go.kr/schema/egov-security/egov-security-3.7.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+<!-- 아래 스프링시큐리티를 적용하지 않는 경로 설정(안트Ant 패턴사용) -->
+<security:http pattern="/css/**" security="none" />
+<security:http pattern="/common/**" security="none" />
+<security:http pattern="/images/**" security="none" />
+<security:http pattern="/js/**" security="none" />
+<security:http pattern="/resources/**" security="none" />
+<security:http pattern="\A/WEB-INF/jsp/.*\Z" request-matcher="regex" security="none" />
+
+<egov-security:config id="securityConfig"
+		loginUrl="/tiles/login.do"
+		logoutSuccessUrl="/tiles/home.do"
+		loginFailureUrl="/tiles/login.do?msg_security=1"
+		accessDeniedUrl="/tiles/home.do?msg_security=2"
+ 
+		dataSource="egov.dataSource"
+		jdbcUsersByUsernameQuery="SELECT a.EMPLYR_ID AS USER_ID, a.PASSWORD, 1 AS ENABLED, a.USER_NM, 'USR' AS USER_SE, a.EMAIL_ADRES AS USER_EMAIL, '-' AS ORGNZT_ID, a.ESNTL_ID, '-' AS ORGNZT_NM FROM LETTNEMPLYRINFO a, LETTNAUTHORGROUPINFO b WHERE a.GROUP_ID = b.GROUP_ID AND a.EMPLYR_ID = ?"
+		jdbcAuthoritiesByUsernameQuery="SELECT a.EMPLYR_ID USER_ID, b.GROUP_NM AUTHORITY FROM LETTNEMPLYRINFO a, LETTNAUTHORGROUPINFO b WHERE a.GROUP_ID = b.GROUP_ID AND a.EMPLYR_ID = ?"
+		jdbcMapClass="edu.human.com.authorrole.EgovSessionMapping"
+ 
+		requestMatcherType="regex"
+		hash="plaintext"
+		hashBase64="false"
+ 
+		concurrentMaxSessons="2"
+		concurrentExpiredUrl="/tiles/home.do"
+ 
+		defaultTargetUrl="/tiles/home.do"
+ 
+		sniff="false"
+		xframeOptions="SAMEORIGIN" 
+		xssProtection="false" 
+		csrf="false"
+ 
+/>
+<egov-security:initializer id="initializer"	supportPointcut="false" supportMethod="false" />
+
+<egov-security:secured-object-config id="securedObjectConfig"
+	roleHierarchyString="
+			ROLE_ADMIN > ROLE_USER
+			ROLE_USER > ROLE_ANONYMOUS"
+	sqlRolesAndUrl="
+			SELECT ROLE_PTTRN url, AUTHOR_CODE authority 
+       		FROM AUTHORROLE 
+       		WHERE USE_AT='Y' ORDER BY SORT_ORDR DESC"
+/>
+
+</beans>

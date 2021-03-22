@@ -39,7 +39,7 @@
        if(loginVO == null){ 
     %>
     <div id="header_loginname">
-        <a href="#" ></a>
+        <a href="<c:url value='/tiles/home.do' />">NEW전자정부사이트</a>
     </div>
     <div class="header_loginconnection"></div>
     <ul class="login_bg_area">
@@ -50,6 +50,7 @@
     <% }else { %>
     <c:set var="loginName" value="<%= loginVO.getName()%>"/>
     <div id="header_loginname">
+    	<a href="<c:url value='/tiles/home.do' />">NEW전자정부사이트</a>&nbsp;
         <a href="#LINK" onclick="location.replace('<c:url value="/" />admin/home.do'); return false;"><c:out value="${loginName}"/> 님</a>
     </div>
     <div class="header_loginconnection"> 관리자로 로그인하셨습니다.</div>

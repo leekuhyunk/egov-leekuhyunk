@@ -23,7 +23,7 @@ import org.springframework.web.context.ServletContextAware;
  */
 public class ImagePaginationRenderer extends AbstractPaginationRenderer implements ServletContextAware{
 
-	private ServletContext servletContext;
+	private ServletContext servletContext;//get없고 set만있음.
 	
 	public ImagePaginationRenderer() {
 	
