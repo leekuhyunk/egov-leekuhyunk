@@ -45,7 +45,7 @@
 			</ul>
 			<p class="btn_line txt_right">
 				<button id="btn_list" type="button" class="btn_bbs">목록</button>
-				<c:if test="${LoginVO.id ne null}">
+				<c:if test="${LoginVO.id ne null && LoginVO.uniqId eq result.frstRegisterId}">
             	<button id="btn_delete" type="button" class="btn_bbs">삭제</button>
 				<button id="btn_update" type="button" class="btn_bbs">수정</button>
 				</c:if>

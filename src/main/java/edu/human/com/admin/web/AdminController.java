@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.logging.impl.SimpleLog;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import edu.human.com.authorrole.service.AuthorRoleService;
+import edu.human.com.authorrole.service.AuthorRoleVO;
+import edu.human.com.authorrole.service.impl.AuthorRoleDAO;
 import edu.human.com.board.service.BoardService;
 import edu.human.com.member.service.EmployerInfoVO;
 import edu.human.com.member.service.MemberService;
@@ -45,12 +50,18 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 @Controller
 public class AdminController {
 	
+	private Logger logger = Logger.getLogger(SimpleLog.class);
+	 
 	@Inject
 	private MemberService memberService;
 	@Inject
 	private CommonUtil commUtil;
 	@Inject
 	private BoardService boardService;
+	@Inject
+	private AuthorRoleService authorRoleService;
+	@Inject
+	private AuthorRoleDAO authorRoleDAO;
 	//스프링빈(new키워드만드는 오브젝트X) 오브젝트를 사용하는 방법 @Inject(자바8이상), @Autowired(많이사용), @Resource(자바7이하)
 	@Autowired
 	private EgovBBSAttributeManageService bbsAttrbService;
@@ -67,6 +78,37 @@ public class AdminController {
 	@Autowired
 	private EgovFileMngUtil fileUtil;
 	
+	//권한 관리 수정하기 호출POST
+		@RequestMapping(value="/admin/authorrole/update_author.do",method=RequestMethod.POST)
+		public String update_author(RedirectAttributes rdat,AuthorRoleVO authorRoleVO,PageVO pageVO) throws Exception {
+			//업데이트 서비스호출
+			authorRoleService.updateAuthorRole(authorRoleVO);
+			rdat.addFlashAttribute("msg", "수정");
+			return "redirect:/admin/authorrole/view_author.do?page="+pageVO.getPage()+"&authorrole_id="+authorRoleVO.getAUTHORROLE_ID();
+		}
+		//권한 관리 상세보기 호출GET
+		@RequestMapping(value="/admin/authorrole/view_author.do",method=RequestMethod.GET)
+		public String view_author(@RequestParam("authorrole_id") int authorrole_id, Model model,@ModelAttribute("pageVO") PageVO pageVO) throws Exception {
+			AuthorRoleVO authorRoleVO = authorRoleService.viewAuthorRole(authorrole_id);
+			model.addAttribute("result", authorRoleVO);
+			model.addAttribute("codeGroup", memberService.selectGroupMap());
+			return "admin/authorrole/view_author";
+		}
+	//권한 관리 리스트 호출GET/POST 2개다 허용
+	@RequestMapping(value="/admin/authorrole/list_author.do",method=RequestMethod.GET)
+	public String list_author(Model model,@ModelAttribute("pageVO") PageVO pageVO) throws Exception {
+		//Get,Set VO생성
+		if(pageVO.getPage() == null) { pageVO.setPage(1); }
+		pageVO.setPerPageNum(5);//하단에 보여줄 페이지번호 개수
+		pageVO.setQueryPerPageNum(10);//한화면에 보여줄 레코드의 개수
+		List<AuthorRoleVO> authorRoleList = authorRoleService.selectAuthorRole(pageVO);
+		
+		int countAuthorRole = authorRoleDAO.countAuthorRole(pageVO);
+		pageVO.setTotalCount(countAuthorRole);//이 명령어에서 prev,next 등이 계산이 됨.
+		logger.debug("디버그: 토탈 사이즈 "+countAuthorRole);
+		model.addAttribute("authorRoleList", authorRoleList);
+		return "admin/authorrole/list_author";
+	}
 	//게시물 등록 폼화면 호출 POST
 	@RequestMapping("/admin/board/insert_board_form.do")
 	public String insert_board_form(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {

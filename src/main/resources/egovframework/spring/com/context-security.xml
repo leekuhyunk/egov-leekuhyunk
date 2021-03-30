@@ -53,4 +53,9 @@
        		WHERE USE_AT='Y' ORDER BY SORT_ORDR DESC"
 />
 
+<bean id="egovStrictHttpFirewall" class="org.springframework.security.web.firewall.StrictHttpFirewall">
+<property name="allowSemicolon" value="true"/>
+</bean>
+<security:http-firewall ref="egovStrictHttpFirewall"/>
+
 </beans>

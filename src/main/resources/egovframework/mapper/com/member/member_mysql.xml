@@ -3,12 +3,12 @@
 <mapper namespace="memberMapper">
 
 <select id="selectGroupMap" resultType="java.util.HashMap">
-select GROUP_ID, GROUP_NM from lettnauthorgroupinfo
+select group_id, group_nm from lettnauthorgroupinfo
 order by group_dc asc
 </select>
 
 <select id="selectCodeMap" resultType="java.util.HashMap">
-select CODE, CODE_NM 
+select code, code_nm 
 from lettccmmndetailcode 
 where code_id = #{code_id}
 </select>

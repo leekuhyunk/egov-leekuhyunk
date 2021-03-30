@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.impl.SimpleLog;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +54,7 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 @Controller
 public class HomeController {
 	
+	private Logger logger = Logger.getLogger(SimpleLog.class);
 	@Autowired //자바8버전 나오기전 많이사용 자바8이후 @Inject로 사용 아주예전 @Resource
 	private EgovBBSAttributeManageService bbsAttrbService;
 	@Autowired
@@ -270,6 +273,7 @@ public class HomeController {
 		}
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
 		boardVO.setFrstRegisterId(user.getUniqId());
@@ -286,6 +290,8 @@ public class HomeController {
 		if (isAuthenticated) {
 		    bmvo = bbsAttrbService.selectBBSMasterInf(master);
 		    bdvo = bbsMngService.selectBoardArticle(boardVO);
+		    logger.debug("디버그: 인증받은 사용자정보를 저장한 객체에서"+user.getUniqId());
+		    logger.debug("디버그: bdvo객체에서 게시판의 등록자 아이디를 구하기"+bdvo.getFrstRegisterId());
 		}
 
 		model.addAttribute("result", bdvo);//게시물 정보 오브젝트(게시물제목,내용,첨부파일id...)
@@ -298,6 +304,12 @@ public class HomeController {
 		    bmvo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
 		model.addAttribute("brdMstrVO", bmvo);//위에서 정의한 bdMstr 모델과 같음.2사람이상이 만들어서 나오는현상
+		
+		if(user.getUniqId() != bdvo.getFrstRegisterId()) {
+			model.addAttribute("msg", "본인이 작성한 글만 수정이 가능합니다.\\n이전 페이지로 이동");
+			return "board/view_board.tiles";
+		}
+		
 		////-----------------------------
 		return "board/update_board.tiles";
 	}

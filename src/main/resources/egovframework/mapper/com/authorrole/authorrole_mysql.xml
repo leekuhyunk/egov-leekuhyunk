@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="authorroleMapper">
+
+<sql id="searchQuery">
+	<if test="search_type !=null and search_type !='' ">
+	where
+		<if test="search_type == 'all'.toString() ">
+			AUTHOR_CODE LIKE CONCAT('%',#{search_keyword},'%')
+			or
+			ROLE_PTTRN LIKE CONCAT('%',#{search_keyword},'%')
+		</if>
+		<if test="search_type == 'author_code'.toString() ">
+			AUTHOR_CODE LIKE CONCAT('%',#{search_keyword},'%')
+		</if>
+		<if test="search_type == 'role_pttrn'.toString()">
+			ROLE_PTTRN LIKE CONCAT('%',#{search_keyword},'%')
+		</if>
+	</if> 
+</sql>
+
+<select id="countAuthorRole" resultType="int">
+select count(*) from authorrole 
+<include refid="searchQuery" />
+</select>
+
+<select id="selectAuthorRole" resultType="edu.human.com.authorrole.service.AuthorRoleVO">
+select * from authorrole
+<include refid="searchQuery" />
+order by sort_ordr desc
+LIMIT #{queryStartNo},#{queryPerPageNum}
+</select>
+
+<select id="viewAuthorRole" resultType="edu.human.com.authorrole.service.AuthorRoleVO">
+select * from authorrole
+where AUTHORROLE_ID = #{AUTHORROLE_ID}
+</select>
+
+<insert id="insertAuthorRole">
+insert into authorrole (
+AUTHORROLE_ID,
+ROLE_PTTRN,
+AUTHOR_CODE,
+AUTHORROLE_DC,
+SORT_ORDR,
+USE_AT
+) values (
+(select AUTHORROLE_ID+1 from authorrole order by authorrole_id desc limit 1),
+#{ROLE_PTTRN},
+#{AUTHOR_CODE},
+#{AUTHORROLE_DC},
+#{SORT_ORDR},
+#{USE_AT}
+)
+</insert>
+
+<update id="updateAuthorRole">
+update authorrole set 
+ROLE_PTTRN=#{ROLE_PTTRN},
+AUTHOR_CODE=#{AUTHOR_CODE},
+AUTHORROLE_DC=#{AUTHORROLE_DC},
+SORT_ORDR=#{SORT_ORDR},
+USE_AT=#{USE_AT}
+where AUTHORROLE_ID = #{AUTHORROLE_ID}
+</update>
+
+<delete id="deleteAuthorRole">
+delete from authorrole where AUTHORROLE_ID = #{AUTHORROLE_ID}
+</delete>
+
+</mapper>

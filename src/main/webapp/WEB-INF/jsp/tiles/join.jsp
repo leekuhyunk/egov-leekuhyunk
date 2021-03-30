@@ -78,7 +78,7 @@
 				</fieldset>
 				<input type="hidden" name="ORGNZT_ID" value="ORGNZT_0000000000000">
 				<input type="hidden" name="EMPLYR_STTUS_CODE" value="S">
-				<input type="hidden" name="GROUP_ID" value="GROUP_99">
+				<input type="hidden" name="GROUP_ID" value="GROUP_00000000000001">
 				<input type="hidden" name="ESNTL_ID" value="">
 			</form>
 			<!-- //폼영역 -->

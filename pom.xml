@@ -266,6 +266,12 @@
 			<artifactId>egovframework.rte.fdl.security</artifactId>
 			<version>3.9.0</version>
 		</dependency>
+		<!-- postgreSQL 모듈추가 -->
+		<dependency>
+		     <groupId>org.postgresql</groupId>
+		     <artifactId>postgresql</artifactId>
+		     <version>42.2.5</version>
+		</dependency>
 		
 	</dependencies>
 
