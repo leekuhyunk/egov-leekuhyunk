@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../include/header.jsp" %>
     
   <!-- 대시보드 본문 Content Wrapper. Contains page content -->
@@ -75,6 +76,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <c:if test="${fn:length(authorRoleList)<1}">
+                  	<tr><td colspan="5" class="text-center">검색된 값이 없습니다.</td></tr>
+                  </c:if>
                   <c:forEach items="${authorRoleList}" var="vo">
                     <tr>
                       <td>
@@ -99,7 +103,7 @@
             
             <!-- 버튼영역 시작 -->
               <div class="card-body">
-              	<a href="<c:url value='/admin/authorrole/insert_author.do' />" class="btn btn-primary float-right">등록</a>
+              	<a href="<c:url value='/admin/authorrole/insert_author_form.do' />" class="btn btn-primary float-right">등록</a>
               	<!-- 부트스트랩 디자인 버튼클래스를 이용해서 a태그를 버튼모양 만들기(위) -->
               	<!-- btn클래스명이 버튼모양으로 변경, btn-primary클래스명은 버튼색상을 변경하는역할 -->
               	<!-- 
