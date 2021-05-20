@@ -16,7 +16,7 @@ import egovframework.rte.fdl.security.userdetails.jdbc.EgovUsersByUsernameMappin
 /**
  * EgovSessionMapping클래스는 아래 기능을 수행한다. 
  * context-security.xml의 쿼리 결과를 변수로 담을 공간을 여기 생성 후 세션에 사용할 값 저장.
- * @author 김일국
+ * @author 이규혁
  *
  */
 public class EgovSessionMapping extends EgovUsersByUsernameMapping {

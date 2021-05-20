@@ -12,7 +12,7 @@ import edu.human.com.util.PageVO;
 /**
  * egov에서 DAO는 sqlSession템플릿을 바로접근하지 않고,
  * EgovAbstractMapper클래스를 상속받아서 DAO구현메서드를 사용.
- * @author 김일국
+ * @author 이규혁
  *
  */
 @Repository

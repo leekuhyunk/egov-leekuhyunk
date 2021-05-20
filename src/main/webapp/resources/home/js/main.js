@@ -37,7 +37,7 @@ function goHide4() {
 function aname(vars) { //함수선언
 	alert(vars + " 이름출력");
 }
-aname('김일국');//함수호출
+aname('이규혁');//함수호출
 */
 $(document).ready(function(){
 	// 상단으로 바로가기 버튼 클릭
